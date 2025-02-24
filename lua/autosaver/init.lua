@@ -2,14 +2,18 @@ local M = {} -- Plugin module
 
 -- Default options
 M.opts = {
-  enable_autocmd = true, -- Enable autocommand-based autosave
-  enable_timer = false, -- Enable periodic autosave
-  interval = 5000, -- Autosave interval in milliseconds (default: 5s)
+  enabled = true,
   excluded_filetypes = { markdown = true, gitcommit = true }, -- Filetypes to exclude
 }
 
+M.enabled = true -- Autosave is enabled by default
+
 -- Autosave function
 local function autosave()
+  if not M.enabled then
+    return -- Do nothing if autosave is disabled
+  end
+
   -- Check if buffer is modified, not read-only, and not excluded
   if vim.bo.readonly or M.opts.excluded_filetypes[vim.bo.filetype] then
     return
@@ -20,39 +24,34 @@ local function autosave()
   end
 end
 
--- Function to start periodic autosave
-function M.start_timer()
-  if not M.opts.enable_timer then
-    return
-  end
-
-  local function timer_callback()
-    autosave()
-    vim.defer_fn(timer_callback, M.opts.interval) -- Reschedule
-  end
-
-  vim.defer_fn(timer_callback, M.opts.interval) -- Start loop
-end
-
 -- Function to enable autocommand-based autosave
-function M.setup_autocmd()
-  if not M.opts.enable_autocmd then
-    return
-  end
-
+function M.setup_autosaver()
   vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     pattern = "*",
     callback = autosave,
   })
 end
 
+-- Function to toggle autosave
+function M.toggle()
+  M.enabled = not M.enabled
+  local status = M.enabled and "enabled" or "disabled"
+  vim.notify("Autosave " .. status, vim.log.levels.INFO, { title = "Autosaver", timeout = 1000 })
+end
+
+function M.setup_command()
+  vim.api.nvim_create_user_command("AutosaveToggle", function()
+    M.toggle()
+  end, { desc = "Toggle autosave on/off" })
+end
+
 -- Plugin setup function (called by the user)
 function M.setup(user_opts)
   M.opts = vim.tbl_extend("force", M.opts, user_opts or {}) -- Merge user options
-
-  -- Setup autosave based on user's choice
-  M.setup_autocmd()
-  M.start_timer()
+  M.enabled = user_opts.enabled
+  -- Setup autosave
+  M.setup_autosaver()
+  M.setup_command()
 end
 
 return M
