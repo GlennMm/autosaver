@@ -4,9 +4,9 @@ Autosaver is a lightweight Neovim plugin written in Lua that automatically saves
 
 ### Features
 
-- Automatic Saving: Saves your file on events like InsertLeave and TextChanged. 
+- Automatic Saving: Saves your file on events like InsertLeave and TextChanged.
 - Persistent State: Remembers whether autosave was enabled or disabled across sessions.
-- Toggle Command: Easily enable or disable autosave on the fly using the :AutosaveToggle command. 
+- Command: The plugin creates a :Autosave command which has the options on/off/status or toggle.
 - Exclusion of Filetypes: Configure filetypes to exclude from autosaving (e.g., commit messages, markdown files).
 
 ### Installation
@@ -48,8 +48,9 @@ Toggle Autosave: Use the command ```:AutosaveToggle``` to switch autosave on or 
 
 The plugin exposes a setup function that accepts a table of options.
 
-Option: excluded_filetypes (table): A list of filetypes to exclude from autosaving. 
-Default: 
+Option: excluded_filetypes (table): A list of filetypes to exclude from autosaving.
+Default:
+
 ```lua
 { 
     markdown = true, 
@@ -59,7 +60,7 @@ Default:
 
 Example:
 
-```lua 
+```lua
 require("autosaver").setup({ 
     excluded_filetypes = { 
         markdown = true, 
