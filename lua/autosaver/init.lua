@@ -56,11 +56,50 @@ function M.toggle()
   vim.notify("Autosave " .. status, vim.log.levels.INFO, { title = "Autosaver", timeout = 1000 })
 end
 
+-- Function to enable autosave
+function M.enable_autosave()
+  if not M.enabled then
+    M.enabled = true
+    save_state()
+    vim.notify("Autosave enabled", vim.log.levels.INFO, { title = "Autosaver", timeout = 1000 })
+  else
+    vim.notify("Autosave is already enabled", vim.log.levels.INFO, { title = "Autosaver", timeout = 1000 })
+  end
+end
+
+-- Function to disable autosave
+function M.disable_autosave()
+  if M.enabled then
+    M.enabled = false
+    save_state()
+    vim.notify("Autosave disabled", vim.log.levels.INFO, { title = "Autosaver", timeout = 1000 })
+  else
+    vim.notify("Autosave is already disabled", vim.log.levels.INFO, { title = "Autosaver", timeout = 1000 })
+  end
+end
+
+-- Function to report autosave status
+function M.status_autosave()
+  local status = M.enabled and "enabled" or "disabled"
+  vim.notify("Autosave is " .. status, vim.log.levels.INFO, { title = "Autosaver", timeout = 1000 })
+end
+
 -- Register the :AutosaveToggle command
 function M.setup_command()
-  vim.api.nvim_create_user_command("AutosaveToggle", function()
-    M.toggle()
-  end, { desc = "Toggle autosave on/off" })
+  vim.api.nvim_create_user_command("Autosave", function(opts)
+    local arg = opts.args
+    if arg == "on" then
+      M.enable_autosave()
+    elseif arg == "off" then
+      M.disable_autosave()
+    elseif arg == "status" then
+      M.status_autosave()
+    elseif arg == "toggle" then
+      M.toggle()
+    else
+      vim.notify("Invalid argument. Use: on, off, or status.", vim.log.levels.ERROR, { title = "Autosaver" })
+    end
+  end, { desc = "Control autosave (on/off/status)", nargs = 1 })
 end
 
 -- Plugin setup function (called by the user)
