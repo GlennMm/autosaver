@@ -57,7 +57,13 @@ Default:
 Example:
 
 ```lua 
-require("autosaver").setup({ excluded_filetypes = { markdown = true, gitcommit = true, text = true }, })
+require("autosaver").setup({ 
+    excluded_filetypes = { 
+        markdown = true, 
+        gitcommit = true, 
+        text = true 
+    }, 
+})
 ```
 
 The autosave state (enabled/disabled) is persisted in a file under Neovim's data directory (typically ~/.local/share/nvim/autosave_state.txt).
