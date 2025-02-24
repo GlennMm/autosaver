@@ -42,7 +42,7 @@ use {
 
 Once installed and configured, Autosaver will automatically save your files when you leave insert mode or when text changes.
 
-Toggle Autosave: Use the command :AutosaveToggle to switch autosave on or off. A notification will display the current state.
+Toggle Autosave: Use the command ```:AutosaveToggle``` to switch autosave on or off. A notification will display the current state.
 
 ### Configuration
 
