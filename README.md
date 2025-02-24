@@ -51,7 +51,10 @@ The plugin exposes a setup function that accepts a table of options.
 Option: excluded_filetypes (table): A list of filetypes to exclude from autosaving. 
 Default: 
 ```lua
-{ markdown = true, gitcommit = true }
+{ 
+    markdown = true, 
+    gitcommit = true 
+}
 ```
 
 Example:
