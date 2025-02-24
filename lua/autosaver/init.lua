@@ -99,7 +99,13 @@ function M.setup_command()
     else
       vim.notify("Invalid argument. Use: on, off, or status.", vim.log.levels.ERROR, { title = "Autosaver" })
     end
-  end, { desc = "Control autosave (on/off/status)", nargs = 1 })
+  end, {
+      desc = "Control autosave (on/off/status/toggle)",
+      nargs = 1,
+      complete = function ()
+        return { "on", "off", "status", "toggle" }
+      end,
+    })
 end
 
 -- Plugin setup function (called by the user)
