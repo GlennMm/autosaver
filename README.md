@@ -33,7 +33,7 @@ use {
     config = function() 
         require("autosaver").setup({ 
             excluded_filetypes = { markdown = true, gitcommit = true }, 
-            }) 
+        }) 
     end, 
 }
 ```
