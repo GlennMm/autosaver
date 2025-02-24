@@ -1,6 +1,5 @@
-local M = {} -- Plugin module
+local M = {}
 
--- Default options (without an "enabled" field)
 M.opts = {
   excluded_filetypes = { markdown = true, gitcommit = true }, -- Filetypes to exclude
 }
