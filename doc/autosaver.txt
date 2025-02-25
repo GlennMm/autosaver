@@ -66,7 +66,7 @@ COMMANDS
             toggle  - Toggle the autosave state.
 
 AUTHOR
-    Your Name matsiweglenn@gmail.com
+    matsiweglenn@gmail.com
 
 LICENSE
     MIT License
