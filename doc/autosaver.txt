@@ -1,0 +1,74 @@
+*autosaver.txt*                     Autosaver Documentation                     *autosaver*
+
+==============================================================================
+                              AUTOSAVER - Auto Save Plugin
+==============================================================================
+
+NAME
+    autosaver - A lightweight autosave plugin for Neovim.
+
+SYNOPSIS
+    :Autosave <on|off|status|toggle>
+
+DESCRIPTION
+    Autosaver is a Neovim plugin that automatically saves your buffer when it is modified,
+    upon leaving Insert mode, or when text is changed. It works silently in the background,
+    ensuring that your work is saved without manual intervention.
+
+FEATURES
+    - Automatically saves modified buffers on InsertLeave and TextChanged events.
+    - Skips autosaving for excluded filetypes (default: markdown, gitcommit).
+    - Persists autosave state between sessions using a state file.
+    - Provides a user command with autocompletion for easy control.
+
+USAGE
+    Use the following commands to control autosave functionality:
+
+        :Autosave on
+            Enables autosave.
+
+        :Autosave off
+            Disables autosave.
+
+        :Autosave status
+            Displays the current autosave status.
+
+        :Autosave toggle
+            Toggles the autosave state between enabled and disabled.
+
+    Autocompletion is provided for these arguments. For example, after typing
+    ":Autosave " press <Tab> to see the available options.
+
+CONFIGURATION
+    The plugin can be configured via its setup function. For example, you can extend the
+    default list of excluded filetypes by doing:
+
+        lua <<EOF
+        require('autosaver').setup({
+            excluded_filetypes = {
+                markdown = true,
+                gitcommit = true,
+                text = true,      " Exclude plain text files, as an example.
+            },
+        })
+        EOF
+
+    The autosave state is persisted in the file:
+        {stdpath("data")}/autosave_state.txt
+
+COMMANDS
+    :Autosave <argument>
+        Controls the autosave functionality. Valid arguments are:
+
+            on      - Enable autosave.
+            off     - Disable autosave.
+            status  - Show the current autosave status.
+            toggle  - Toggle the autosave state.
+
+AUTHOR
+    Your Name matsiweglenn@gmail.com
+
+LICENSE
+    MIT License
+
+==============================================================================
