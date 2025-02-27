@@ -1,7 +1,15 @@
+---@class AutosaveOptions
+---@field excluded_filetypes table<string, boolean> List of filetypes to exclude from autosave
+---@field autosave_function? fun() Custom function to handle autosaving
+
+---@class AutosavePlugin
+---@field opts AutosaveOptions
 local M = {}
 
 M.opts = {
   excluded_filetypes = { markdown = true, gitcommit = true }, -- Filetypes to exclude
+  autosave_function = nil,
+  enabled = true
 }
 
 M.enabled = true -- Autosave is enabled by default
@@ -25,7 +33,7 @@ local function load_state()
 end
 
 -- Autosave function
-local function autosave()
+local function default_autosave()
   if not M.enabled then
     return -- Do nothing if autosave is disabled
   end
@@ -44,7 +52,7 @@ end
 function M.setup_autosaver()
   vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
     pattern = "*",
-    callback = autosave,
+    callback = M.opts.autosave_function or default_autosave,
   })
 end
 
