@@ -8,6 +8,7 @@ Autosaver is a lightweight Neovim plugin written in Lua that automatically saves
 - Persistent State: Remembers whether autosave was enabled or disabled across sessions.
 - Command: The plugin creates a :Autosave command which has the options on/off/status or toggle.
 - Exclusion of Filetypes: Configure filetypes to exclude from autosaving (e.g., commit messages, markdown files).
+- You can also pass you own function that implement the way of saving files which get run when a file is being saved.
 
 ### Installation
 
@@ -16,12 +17,15 @@ You can install Autosaver using your favorite Neovim plugin manager.
 Example using Lazy.nvim:
 
 ```lua
-return { 
-    "GlennMm/autosaver", -- Replace with your GitHub repo if different 
-    config = function() 
-    require("autosaver").setup({ 
-        excluded_filetypes = { markdown = true, gitcommit = true }, }) 
-    end,
+return {
+  "GlennMm/autosaver", -- Replace with your GitHub repo if different
+  ---@class AutosaveOptions
+  ---@field excluded_filetypes table<string, boolean> List of filetypes to exclude from autosave
+  ---@field autosave_function? fun() Custom function to handle autosavin
+  opts = {
+    excluded_filetypes = { markdown = true, gitcommit = true },
+  },
+  config = true,
 }
 ```
 
