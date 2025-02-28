@@ -9,6 +9,7 @@ Autosaver is a lightweight Neovim plugin written in Lua that automatically saves
 - Command: The plugin creates a :Autosave command which has the options on/off/status or toggle.
 - Exclusion of Filetypes: Configure filetypes to exclude from autosaving (e.g., commit messages, markdown files).
 - You can also pass you own function that implement the way of saving files which get run when a file is being saved.
+- you can also write you own custom logic for saving. An idea you could add custom save logic automatically save changes inside the buffer being edited (:w)  instead of the default (:wa). N.B i just assuming i have not tried that as of yet. 
 
 ### Installation
 
