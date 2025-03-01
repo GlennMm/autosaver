@@ -19,7 +19,7 @@ Example using Lazy.nvim:
 
 ```lua
 return {
-  "GlennMm/autosaver", -- Replace with your GitHub repo if different
+  "GlennMm/autosaver",
   ---@class AutosaveOptions
   ---@field excluded_filetypes table<string, boolean> List of filetypes to exclude from autosave
   ---@field autosave_function? fun() Custom function to handle autosavin
@@ -47,7 +47,7 @@ use {
 
 Once installed and configured, Autosaver will automatically save your files when you leave insert mode or when text changes.
 
-Toggle Autosave: Use the command ```:AutosaveToggle``` to switch autosave on or off. A notification will display the current state.
+Toggle Autosave: Use the command ```:Autosave option``` to switch autosave on or off. A notification will display the current state.
 
 ### Configuration
 
